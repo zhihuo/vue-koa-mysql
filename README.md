@@ -3,6 +3,6 @@
 ```
    mysqlService : koa + mysql 提供后端服务
 
-   vueUser: 前端功能内容
-   
+   vue3: 前端功能内容
+
 ```
