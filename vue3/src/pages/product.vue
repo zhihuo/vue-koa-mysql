@@ -60,7 +60,7 @@
 </template>
 <script>
 import { Productslist, Editproducts, Addproducts, Delproducts} from '../api/product';
-import { global } from '../utils/global.js';
+// import { globalFun } from '../utils/globalFun.js';
 
 export default {
   data(){
@@ -119,37 +119,41 @@ export default {
 				this.init()
 			}
 		},
-		async delClick(item) {
-			console.log('item==', item)
-			// const { confirm } = global();
-			// confirm({
-			// 	content: '确定这条删除吗？',
-			// 	thenFun: this.delfun()
-			// })
-			const params = {
-				id: item.id
-			}
+		delClick(item) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      }).then(() => {
+          this.delItem(item.id)
+      }).catch(() => {
+          this.$message({
+              type: 'info',
+              message: '已取消删除'
+          });
+      });
+			// const params = {
+			// 	id: item.id
+			// }
 			// const res = await this.$http.post('/delproducts', params)
-			const res = await Delproducts(this, params)
-			console.log('res===', res)
+			// const res = await Delproducts(this, params)
+			// console.log('res===', res)
+			// if (res.status === 200) {
+			// 	this.$message(res.msg)
+			// 	this.init()
+			// }
+    },
+    async delItem(itemId) {
+      const params = {
+				id: itemId
+			}
+      const res = await Delproducts(this, params)
 			if (res.status === 200) {
 				this.$message(res.msg)
 				this.init()
 			}
-		},
-		// async delfun() {
-		// 	const params = {
-		// 		id: this.delId
-		// 	}
-		// 	// const res = await this.$http.post('/delproducts', params)
-		// 	const res = await Delproducts(this, params)
-		// 	console.log('res===', res)
-		// 	if (res.status === 200) {
-		// 		this.$message(res.msg)
-		// 		this.init()
-		// 	}
-		// },
-
+    },
 		async editClick(item) {
 			this.dialogVisible = true
 			this.editDialog = true
