@@ -21,6 +21,7 @@
     </el-table>
 </template>
 <script>
+import Infolist from '../api/infolist'
 export default {
   data(){
 		return{
@@ -32,8 +33,10 @@ export default {
   },
 	methods:{
 		async init() {
-      const res = await this.$http.get('/usertables', {})
+      // const res = await this.$http.get('/usertables', {})
       // this.tableData = res.response
+      const params = {}
+      const res = await Infolist(this, params);
       this.tableData = res.data
     }
   }

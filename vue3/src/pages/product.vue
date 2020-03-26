@@ -59,6 +59,9 @@
     </div>
 </template>
 <script>
+import { Productslist, Editproducts, Addproducts, Delproducts} from '../api/product';
+import { global } from '../utils/global.js';
+
 export default {
   data(){
 		return{
@@ -69,7 +72,8 @@ export default {
 			price: 0,
 			number: 0,
 			editDialog: false,
-			tooldata: []
+			tooldata: [],
+			delId: ''
 		};
 	},
   mounted(){
@@ -78,7 +82,8 @@ export default {
   },
 	methods:{
 		async init() {
-			const res = await this.$http.get('/products', {})
+			// const res = await this.$http.get('/products', {})
+			const res = await Productslist(this, {})
 			console.log('get===', res)
 			if (res.status === 200) {
 				// this.tableData = res.response
@@ -105,7 +110,9 @@ export default {
 				number: this.number
 			}
 			console.log('params==', params, this.editDialog)
-			const res = await this.$http.post((this.editDialog ? '/editproducts' : '/addproducts'), params)
+			// const res = await this.$http.post((this.editDialog ? '/editproducts' : '/addproducts'), params)
+			const res = this.editDialog ? await Editproducts(this, params) : await Addproducts(this, params)
+
 			console.log('res===', res)
 			if (res.status === 200) {
 				this.$message(res.msg)
@@ -114,16 +121,35 @@ export default {
 		},
 		async delClick(item) {
 			console.log('item==', item)
+			// const { confirm } = global();
+			// confirm({
+			// 	content: '确定这条删除吗？',
+			// 	thenFun: this.delfun()
+			// })
 			const params = {
 				id: item.id
 			}
-			const res = await this.$http.post('/delproducts', params)
+			// const res = await this.$http.post('/delproducts', params)
+			const res = await Delproducts(this, params)
 			console.log('res===', res)
 			if (res.status === 200) {
 				this.$message(res.msg)
 				this.init()
 			}
 		},
+		// async delfun() {
+		// 	const params = {
+		// 		id: this.delId
+		// 	}
+		// 	// const res = await this.$http.post('/delproducts', params)
+		// 	const res = await Delproducts(this, params)
+		// 	console.log('res===', res)
+		// 	if (res.status === 200) {
+		// 		this.$message(res.msg)
+		// 		this.init()
+		// 	}
+		// },
+
 		async editClick(item) {
 			this.dialogVisible = true
 			this.editDialog = true

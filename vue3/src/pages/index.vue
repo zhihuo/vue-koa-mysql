@@ -11,6 +11,8 @@
 		</div>
 </template>
 <script>
+import getMapData from '../api/index'
+
 export default {
 	data(){
 		return{
@@ -24,13 +26,14 @@ export default {
     this.getMap();
   },
 	methods:{
-		async init() {
-      const res = await this.$http.get('/usertables', {})
-      this.tableData = res.response
-    },
+		// async init() {
+  //     const res = await this.$http.get('/usertables', {})
+  //     this.tableData = res.response
+  //   },
     async getMap() {
-      const res = await this.$http.get('/map', {})
+      // const res = await this.$http.get('/map', {})
       // this.mapData = res.response.data
+      const res = await getMapData(this, {})
       this.mapData = res.data
       this.drawLine();
     },
