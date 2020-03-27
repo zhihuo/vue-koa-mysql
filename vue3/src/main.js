@@ -6,13 +6,15 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import echarts from 'echarts'
 import 'echarts-gl';
-import 'echarts/map/js/china.js' 
+import 'echarts/map/js/china.js';
+// import global from './utils/globalFun.js';
 
 Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
 
 Vue.use(axiosPlugin);
 Vue.use(ElementUI);
+// Vue.use(global);
 
 new Vue({
   router,

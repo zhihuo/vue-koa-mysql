@@ -133,6 +133,11 @@ export default {
               message: '已取消删除'
           });
       });
+      // 全局方法调用
+      // this.confirm({
+      //   content: '此操作将永久删除该文件, 是否继续?',
+      //   fn: this.delItem(item.id)
+      // })
 			// const params = {
 			// 	id: item.id
 			// }
@@ -145,6 +150,8 @@ export default {
 			// }
     },
     async delItem(itemId) {
+      // console.log('come here!');
+      // return false;
       const params = {
 				id: itemId
 			}
