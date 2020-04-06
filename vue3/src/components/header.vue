@@ -33,6 +33,8 @@
     </div>
 </template>
 <script>
+import { UsersList } from '../api/users'
+import { LoginOut } from '../api/loginRegister'
 export default {
 	data(){
 		return{
@@ -44,12 +46,14 @@ export default {
 	},
 	methods:{
 		async init() {
-			const res = await this.$http.get('/info', {})
+			// const res = await this.$http.get('/info', {})
+            const res = await UsersList({})
 			// this.info = res.response
             this.info = res.data[0]
         },
         async loginout() {
-            const res = await this.$http.get('/loginout', {})
+            // const res = await this.$http.get('/loginout', {})
+            const res = await LoginOut({})
             console.log('退出：', res)
             if (res.status === 200) {
                 this.$router.push('login')

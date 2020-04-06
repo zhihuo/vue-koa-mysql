@@ -31,6 +31,7 @@
     </el-card>
 </template>
 <script>
+import { UsersList } from '../api/users'
 export default {
 		data(){
 			return{
@@ -43,8 +44,8 @@ export default {
 		methods:{
 			async init() {
 				// const res = await this.$http.get('/users', {})
-				// this.userlist = res.response
-        const res = await this.$http.get('/info', {})
+        // const res = await this.$http.get('/info', {})
+        const res = await UsersList({});
         this.userlist = res.data
 			}
 		}

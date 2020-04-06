@@ -83,7 +83,8 @@ export default {
 	methods:{
 		async init() {
 			// const res = await this.$http.get('/products', {})
-			const res = await Productslist(this, {})
+			// const res = await Productslist(this, {})
+			const res = await Productslist({})
 			console.log('get===', res)
 			if (res.status === 200) {
 				// this.tableData = res.response
@@ -111,7 +112,8 @@ export default {
 			}
 			console.log('params==', params, this.editDialog)
 			// const res = await this.$http.post((this.editDialog ? '/editproducts' : '/addproducts'), params)
-			const res = this.editDialog ? await Editproducts(this, params) : await Addproducts(this, params)
+			// const res = this.editDialog ? await Editproducts(this, params) : await Addproducts(this, params)
+			const res = this.editDialog ? await Editproducts(params) : await Addproducts(params)
 
 			console.log('res===', res)
 			if (res.status === 200) {
@@ -155,7 +157,8 @@ export default {
       const params = {
 				id: itemId
 			}
-      const res = await Delproducts(this, params)
+      // const res = await Delproducts(this, params)
+      const res = await Delproducts(params)
 			if (res.status === 200) {
 				this.$message(res.msg)
 				this.init()

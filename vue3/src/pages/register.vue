@@ -16,6 +16,8 @@
 		</el-form>
 </template>
 <script>
+import { Register } from '../api/loginRegister.js'
+
 export default {
     data() {
       var checkAge = (rule, value, callback) => {
@@ -67,7 +69,8 @@ export default {
 					password: this.ruleForm2.pass,
 					userName: this.ruleForm2.username
 				}
-				const res = await this.$http.post('/register', params)
+				// const res = await this.$http.post('/register', params)
+        const res = await Register(params)
 				if(res.status === 200) {
 					this.$message(res.msg)
 					this.$router.push('index')
